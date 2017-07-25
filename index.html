@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="styles/styles.css">
+</head>
+<body>
+	
+	<div ng-controller="employeeCtl">
+		<h1>Employees</h1>
+
+		<div ng-show="pageState.loading">
+			... Loading ...
+		</div>
+
+		<div ng-show="!pageState.loading">
+			<div class="layout">
+				<div ng-repeat="item in employees" ng-click="selectEmployee(item)">
+					<span ng-bind="item.last_name + ', ' + item.first_name"></span>
+				</div>
+				<div>
+					<button ng-click="pageFirst()"><<</button>
+					<button ng-click="pagePrevious()" ng-disabled="pagination.currentPage === 1"><</button>
+					<span>
+						<span ng-bind="pagination.currentPage"></span> | 
+						<span ng-bind="pagination.totalPages"></span>
+					</span>
+					<button ng-click="pageNext()" ng-disabled="pagination.currentPage === pagination.totalPages">></button>				
+					<button ng-click="pageLast()">>></button>
+				</div>
+			</div>
+			<div class="layout">
+				<div ng-show="selectedEmployee.emp_no">
+					<h2>Employee Details</h2>
+					<div>Last Name: <span ng-bind="selectedEmployee.last_name"></span></div>
+					<div>First Name: <span ng-bind="selectedEmployee.first_name"></span></div>
+					<div>Employee #: <span ng-bind="selectedEmployee.emp_no"></span></div>
+					<div>DOB: <span ng-bind="selectedEmployee.birth_date"></span></div>
+					<div>Gender: <span ng-bind="selectedEmployee.gender"></span></div>
+					<div>Hire Date: <span ng-bind="selectedEmployee.hire_date"></span></div>
+
+					<h2>Employee Salary History</h2>
+					<div>
+						<div ng-repeat="item in selectedEmployee.salaries">
+							<span>Salary: <span ng-bind="'$' + item.salary"></span></span>,
+							<span>From Date: <span ng-bind="item.from_date"></span></span>, 
+							<span>To Date: <span ng-bind="item.to_date"></span></span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script src="node_modules/angular/angular.min.js"></script>
+	<script src="js/app.js"></script>
+</body>
+</html>
