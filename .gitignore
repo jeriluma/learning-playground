@@ -1,0 +1,7 @@
+#Package manager files
+node_modules/
+bower_components/
+
+#Jetbrains IDE files
+.idea/
+*.iml
